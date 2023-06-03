@@ -10,8 +10,10 @@ func ConnectToDB() (*sql.DB, error) {
 	password := "root"
 	port := "3306"
 	ip := "localhost"
+	// Change the name of the schema
+	schema := "my-schema"
 
-	url := user + ":" + password + "@tcp(" + ip + ":" + port + ")/budget"
+	url := user + ":" + password + "@tcp(" + ip + ":" + port + ")/" + schema
 
 	db, err := sql.Open("mysql", url)
 	if err != nil {
