@@ -1,11 +1,13 @@
 package database
 
 import (
-	"database/sql"
 	"fmt"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
-func ConnectToDB() (*sql.DB, error) {
+func ConnectToDB() (*gorm.DB, error) {
 	user := "root"
 	password := "root"
 	port := "3306"
@@ -13,9 +15,9 @@ func ConnectToDB() (*sql.DB, error) {
 	// Change the name of the schema
 	schema := "my-schema"
 
-	url := user + ":" + password + "@tcp(" + ip + ":" + port + ")/" + schema
+	dsn := user + ":" + password + "@tcp(" + ip + ":" + port + ")/" + schema + "?charset=utf8mb4&parseTime=True&loc=Local"
 
-	db, err := sql.Open("mysql", url)
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, fmt.Errorf("error conectando a la base de datos: %w", err)
 	}
