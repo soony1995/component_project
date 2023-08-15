@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/isaiorellana-dev/radio-api/routes"
+	"soon-pro/routes"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )

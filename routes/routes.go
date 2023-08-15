@@ -1,8 +1,9 @@
 package routes
 
 import (
-	h "github.com/isaiorellana-dev/radio-api/handlers"
-	m "github.com/isaiorellana-dev/radio-api/middlewares"
+	h "soon-pro/handlers"
+	m "soon-pro/middlewares"
+
 	"github.com/labstack/echo/v4"
 )
 
