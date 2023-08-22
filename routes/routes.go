@@ -1,9 +1,6 @@
 package routes
 
 import (
-	h "soon-pro/handlers"
-	m "soon-pro/middlewares"
-
 	"github.com/labstack/echo/v4"
 )
 
