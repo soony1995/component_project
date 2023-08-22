@@ -15,3 +15,10 @@ prompts/
 
 # build output
 air
+
+# binary file
+*.exe
+
+#checksum & modules
+go.mod
+go.sum

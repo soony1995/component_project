@@ -8,18 +8,20 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - db-data:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    restart: always
-    environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
-
+      - db-data:/var/lib/mysql  
+  redis:
+      image: redislabs/redisgears
+      command: redis-server --requirepass soony1995 --port 36379 --loadmodule /var/opt/redislabs/lib/modules/redisgears.so Plugin /var/opt/redislabs/modules/rg/plugin/gears_python.so
+      container_name: redis36379
+      hostname: redis36379
+      privileged: true
+      volumes:
+         - ./redis_data:/dat:rw
+      restart: always
+      labels:
+         - "name=redis"
+         - "mode=standalone"
+      ports:
+         - 36379:36379
 volumes:
   db-data:
