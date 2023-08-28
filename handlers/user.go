@@ -3,6 +3,9 @@ package handlers
 import (
 	"login-pro/models"
 	"net/http"
+	"os"
+	"strconv"
+	"time"
 
 	"github.com/labstack/echo/v4"
 )
@@ -13,6 +16,7 @@ func LogIn(c echo.Context) (err error) {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
+	// TODO) 검증 로직 추가해야함.
 	ts, err := CreateToken(user.ID)
 	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, err.Error())
@@ -26,7 +30,33 @@ func LogIn(c echo.Context) (err error) {
 		"access_token":  ts.AccessToken,
 		"refresh_token": ts.RefreshToken,
 	}
-	return c.JSON(http.StatusOK, tokens)
+
+	accessExpiry, _ := strconv.Atoi(os.Getenv("HTTP_COOKIE_ACCESS_EXPIRY"))
+	refreshExpiry, _ := strconv.Atoi(os.Getenv("HTTP_COOKIE_REFRESH_EXPIRY"))
+
+	c.SetCookie(&http.Cookie{
+		Name:     "access",
+		Value:    tokens["access_token"],
+		Path:     "/",
+		Expires:  time.Now().Add(time.Minute * time.Duration(accessExpiry)),
+		Domain:   os.Getenv("SERVER_DOMAIN_COOKIE"),
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteNoneMode,
+	})
+
+	c.SetCookie(&http.Cookie{
+		Name:     "refresh",
+		Value:    tokens["refresh_token"],
+		Path:     "/",
+		Expires:  time.Now().Add(time.Minute * time.Duration(refreshExpiry)),
+		Domain:   os.Getenv("SERVER_DOMAIN_COOKIE"),
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteNoneMode,
+	})
+
+	return c.JSON(http.StatusOK, "success login")
 }
 
 func LogOut(c echo.Context) (err error) {
