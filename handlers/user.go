@@ -39,7 +39,7 @@ func LogIn(c echo.Context) (err error) {
 		Value:    tokens["access_token"],
 		Path:     "/",
 		Expires:  time.Now().Add(time.Minute * time.Duration(accessExpiry)),
-		Domain:   os.Getenv("SERVER_DOMAIN_COOKIE"),
+		Domain:   ".localhost",
 		Secure:   true,
 		HttpOnly: true,
 		SameSite: http.SameSiteNoneMode,
@@ -50,8 +50,8 @@ func LogIn(c echo.Context) (err error) {
 		Value:    tokens["refresh_token"],
 		Path:     "/",
 		Expires:  time.Now().Add(time.Minute * time.Duration(refreshExpiry)),
-		Domain:   os.Getenv("SERVER_DOMAIN_COOKIE"),
-		Secure:   true,
+		Domain:   ".localhost",
+		Secure:   true, //http
 		HttpOnly: true,
 		SameSite: http.SameSiteNoneMode,
 	})
