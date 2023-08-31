@@ -12,6 +12,7 @@ func RegisterRoutes(e *echo.Echo) {
 		reqID := c.Request().Header.Get(echo.HeaderXRequestID)
 		return c.String(http.StatusOK, "Request ID: "+reqID)
 	})
+
 	e.POST("/login", h.LogIn)
 	e.POST("/logout", h.LogOut)
 	e.POST("/todo", h.CreateTodo)
