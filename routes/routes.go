@@ -8,11 +8,11 @@ import (
 )
 
 func RegisterRoutes(e *echo.Echo) {
-	e.GET("/", func(c echo.Context) error {
-		reqID := c.Request().Header.Get(echo.HeaderXRequestID)
-		return c.String(http.StatusOK, "Request ID: "+reqID)
-	})
 
+	e.GET("/IP", func(c echo.Context) error {
+		clientIP := echo.ExtractIPDirect()(c.Request())
+		return c.String(http.StatusOK, "Client IP: "+clientIP)
+	})
 	e.POST("/login", h.LogIn)
 	e.POST("/logout", h.LogOut)
 	e.POST("/todo", h.CreateTodo)

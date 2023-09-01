@@ -94,12 +94,6 @@ $(function() {
 		// 폼 데이터 가져오기
 		var formData = new FormData(form[0]);
 
-		// CORS headers
-		var headers = {
-			'Access-Control-Allow-Origin': '*', // Replace with the allowed origin
-			// Add more CORS headers if needed
-		};
-
 		// POST 요청 보내기
 		$.ajax({
 			type: "POST",
@@ -107,7 +101,10 @@ $(function() {
 			data: formData,
 			processData: false, // 폼 데이터를 처리하지 않도록 설정
 			contentType: false, // 컨텐츠 타입 설정하지 않도록 설정
-			headers: headers, // Add the CORS headers here
+			// beforeSend: function(xhr) {
+			// 	// 'x-real-ip' 헤더에 원하는 값을 설정합니다.
+			// 	xhr.setRequestHeader('x-real-ip', '원하는 IP 주소 또는 값을 여기에 입력');
+			// },
 			success: function(response) {
 				// 요청이 성공한 경우 여기에서 처리
 				console.log("로그인 성공:", response);
