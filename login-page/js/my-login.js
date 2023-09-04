@@ -105,6 +105,10 @@ $(function() {
 			// 	// 'x-real-ip' 헤더에 원하는 값을 설정합니다.
 			// 	xhr.setRequestHeader('x-real-ip', '원하는 IP 주소 또는 값을 여기에 입력');
 			// },
+			xhrFields: {
+				withCredentials: true // credentials 옵션을 'same-origin'으로 설정
+			},
+			credentials: 'same-origin',
 			success: function(response) {
 				// 요청이 성공한 경우 여기에서 처리
 				console.log("로그인 성공:", response);

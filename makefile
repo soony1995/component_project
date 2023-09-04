@@ -1,13 +1,9 @@
-PATH := $(PWD)
+PACKAGENAME := login-pro.exe
 
 build:
-	go build -o ${PATH}/start
+	go build -o ${PACKAGENAME}
 
 run:
-	${PATH}/start
+	./${PACKAGENAME}
 
-restart:
-	go build -o ${PATH}/start
-	${PATH}/start
-
-	
+restart: build run
