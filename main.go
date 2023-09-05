@@ -17,7 +17,11 @@ func main() {
 
 	routes.RegisterRoutes(e)
 
-	if err := e.Start("localhost:2222"); err != nil {
+	// if err := e.Start("localhost:2222"); err != nil {
+	// 	e.Logger.Fatal(err)
+	// }
+
+	if err := e.StartTLS("localhost:2222", "./certs/_wildcard.example.dev+3.pem", "./certs/_wildcard.example.dev+3-key.pem"); err != nil {
 		e.Logger.Fatal(err)
 	}
 }

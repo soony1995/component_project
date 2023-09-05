@@ -39,11 +39,12 @@ func LogIn(c echo.Context) (err error) {
 		Value:   tokens["access_token"],
 		Path:    "/",
 		Expires: time.Now().Add(time.Minute * time.Duration(accessExpiry)),
-		Domain:  "127.0.0.1",
-		// Secure:  true, // https 일 경우에만 true
+		// Domain:  "127.0.0.1",
+		Secure: true, // https 일 경우에만 true
 		// 현재 chrome에서는 https에서만 쿠키 저장이 가능하기 때문에 firefox에서 진행
 		HttpOnly: true,
 		SameSite: http.SameSiteNoneMode,
+		//SameSite을 포함한 쿠키는 Secure도 지정해야 합니다. 즉, 보안 컨텍스트가 필요합니다.
 	})
 
 	c.SetCookie(&http.Cookie{
@@ -51,8 +52,8 @@ func LogIn(c echo.Context) (err error) {
 		Value:   tokens["refresh_token"],
 		Path:    "/",
 		Expires: time.Now().Add(time.Minute * time.Duration(refreshExpiry)),
-		Domain:  "127.0.0.1",
-		// Secure: true, // https 일 경우에만 true
+		// Domain:  "127.0.0.1",
+		Secure: true, // https 일 경우에만 true
 		// 현재 chrome에서는 https에서만 쿠키 저장이 가능하기 때문에 firefox에서 진행
 		HttpOnly: true,
 		SameSite: http.SameSiteNoneMode,
