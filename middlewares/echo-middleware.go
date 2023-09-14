@@ -22,8 +22,7 @@ func CorsMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 			AllowOrigins:     []string{"*"},
 			AllowMethods:     []string{http.MethodGet, http.MethodPost},
 			AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
-			AllowCredentials: true, 
-
+			AllowCredentials: true,
 		}
 		middleware.CORSWithConfig(corsConfig)(next)(c)
 		return nil

@@ -5,10 +5,12 @@ import (
 	"login-pro/middlewares"
 	"login-pro/routes"
 
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
+
 	e := echo.New()
 
 	handlers.Init()

@@ -1,27 +1,12 @@
-version: "3.9"
+version: '3.7'
 services:
-  db:
-    image: mysql:latest
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "3306:3306"
-    volumes:
-      - db-data:/var/lib/mysql  
-  redis:
-      image: redislabs/redisgears
-      command: redis-server --requirepass soony1995 --port 36379 --loadmodule /var/opt/redislabs/lib/modules/redisgears.so Plugin /var/opt/redislabs/modules/rg/plugin/gears_python.so
-      container_name: redis36379
-      hostname: redis36379
-      privileged: true
-      volumes:
-         - ./redis_data:/dat:rw
-      restart: always
-      labels:
-         - "name=redis"
-         - "mode=standalone"
+    redis:
+      container_name: redis-study
+      image: redis:latest
       ports:
-         - 36379:36379
-volumes:
-  db-data:
+        - 36379:6379
+      restart: always
+      command: redis-server /usr/local/conf/redis.conf
+      volumes:
+        - ./data/:/data
+        - ./conf/redis.conf:/usr/local/conf/redis.conf

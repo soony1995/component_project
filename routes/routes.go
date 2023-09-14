@@ -13,6 +13,7 @@ func RegisterRoutes(e *echo.Echo) {
 		clientIP := echo.ExtractIPDirect()(c.Request())
 		return c.String(http.StatusOK, "Client IP: "+clientIP)
 	})
+	e.POST("/set-cookie", h.WriteCookie)
 	e.POST("/login", h.LogIn)
 	e.POST("/logout", h.LogOut)
 	e.POST("/todo", h.CreateTodo)
